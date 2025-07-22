@@ -13,7 +13,7 @@ const SCROLL_THRESHOLD = GAME_HEIGHT / 3; // 플레이어가 이 높이에 도�
 const images = {};
 const imageSources = {
     
-    player_spritesheet: 'assets/player_spritesheet.png', // 플레이어 애니메이션 스프라이트 시트
+     // 플레이어 애니메이션 스프라이트 시트
     apple: 'assets/apple.png',
     enemy: 'assets/enemy.png',
     platform: 'assets/platform.png',
