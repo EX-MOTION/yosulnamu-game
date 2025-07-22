@@ -1,0 +1,17 @@
+{
+  "name": "yosulnamu-game",
+  "version": "1.0.0",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "gh-pages -d ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "homepage": "https://your-username.github.io/yosulnamu-game",
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
+  }
+}
