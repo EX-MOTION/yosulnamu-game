@@ -33,12 +33,12 @@ const totalImages = Object.keys(imageSources).length;
 let audiosLoaded = 0;
 const audios = {};
 const audioSources = {
-    bgm_main: 'assets/audio/bgm_main.wav',
-    bgm_section2: 'assets/audio/bgm_section2.wav',
-    sfx_jump: 'assets/audio/sfx_jump.wav',
-    sfx_apple_drop: 'assets/audio/sfx_apple_drop.wav',
-    sfx_enemy_hit: 'assets/audio/sfx_enemy_hit.wav',
-    sfx_diamond: 'assets/audio/sfx_diamond.wav',
+    bgm_main: 'assets/bgm_main.wav',
+    bgm_section2: 'assets/bgm_section2.wav',
+    sfx_jump: 'assets/sfx_jump.wav',
+    sfx_apple_drop: 'assets/sfx_apple_drop.wav',
+    sfx_enemy_hit: 'assets/sfx_enemy_hit.wav',
+    sfx_diamond: 'assets/sfx_diamond.wav',
     sfx_game_over: 'assets/sfx_game_over.wav',
     sfx_game_clear: 'assets/sfx_game_clear.wav'
 };
