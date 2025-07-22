@@ -40,7 +40,7 @@ const audioSources = {
     sfx_enemy_hit: 'assets/audio/sfx_enemy_hit.wav',
     sfx_diamond: 'assets/audio/sfx_diamond.wav',
     sfx_game_over: 'assets/audio/sfx_game_over.wav',
-    sfx_game_clear: 'assets/audio/sfx_game_clear.wav'
+    sfx_game_clear: 'assets/sfx_game_clear.wav'
 };
 const totalAudios = Object.keys(audioSources).length;
 
