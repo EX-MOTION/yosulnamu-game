@@ -293,6 +293,9 @@ document.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowLeft' || e.key === 'ArrowRight' || e.code === 'Space' || e.code === 'KeyD' || e.code === 'Enter') {
         keys[e.key] = true;
         keys[e.code] = true; // Spacebar, KeyD, Enter를 위해 e.code 사용
+        if (e.code === 'Enter') {
+            console.log('Enter keydown detected!');
+        }
     }
 });
 document.addEventListener('keyup', (e) => {
@@ -374,12 +377,14 @@ function updatePlayer() {
 
     // 게임 시작/재시작
     if (keys.Enter) {
+        console.log('Inside keys.Enter block. gameStarted before: ', gameStarted);
         if (gameOver || gameClear) {
             resetGame();
         } else if (!gameStarted) {
             gameStarted = true;
             playAudio('bgm_main', true, 0.5); // 메인 BGM 재생
         }
+        console.log('gameStarted after: ', gameStarted);
         keys.Enter = false; // 한 번 누르면 한 번만 작동되도록
     }
 
