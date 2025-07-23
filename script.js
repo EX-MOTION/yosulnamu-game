@@ -776,83 +776,71 @@ function resetGame() {
 
 // 게임 루프
 function gameLoop() {
-    if (!gameStarted) {
-        drawStartScreen();
-        requestAnimationFrame(gameLoop);
-        return;
-    }
-
-    if (gameOver) {
-        drawGameOver();
-        requestAnimationFrame(gameLoop);
-        return;
-    }
-
-    if (gameClear) {
-        drawGameClear();
-        requestAnimationFrame(gameLoop);
-        return;
-    }
+    updatePlayer(); // 항상 플레이어 입력을 먼저 처리
 
     ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
 
-    drawBackground(); // 배경 그리기
+    if (gameOver) {
+        drawGameOver();
+    } else if (gameClear) {
+        drawGameClear();
+    } else if (!gameStarted) {
+        drawStartScreen();
+    } else {
+        // 게임이 시작된 경우에만 게임 로직 및 그리기 수행
+        drawBackground();
+        updateApples();
+        updateDiamonds();
+        updateEnemies();
+        updateLightning();
+        updatePlatforms();
+        generateEnemies(cameraY - GAME_HEIGHT);
 
-    updatePlayer(); // 플레이어 위치 업데이트
-    updateApples(); // 사과 위치 업데이트
-    updateDiamonds(); // 다이아몬드 위치 업데이트 및 충돌 감지
-    updateEnemies(); // 적 위치 업데이트 및 충돌 감지
-    updateLightning(); // 번개 업데이트
-    updatePlatforms(); // 플랫폼 업데이트 (제거 및 생성)
-
-    // 현재 구간에 따라 적 동적 생성
-    generateEnemies(cameraY - GAME_HEIGHT); // 화면 상단에 새로운 적 생성
-
-    // 게임 클리어 조건 확인
-    if (player.y - cameraY < GAME_CLEAR_HEIGHT) {
-        gameClear = true;
-        stopAllAudios();
-        playAudio('sfx_game_clear');
-    }
-
-    drawPlatforms(); // 플랫폼 그리기
-    drawApples(); // 사과 그리기
-    drawDiamonds(); // 다이아몬드 그리기
-    drawEnemies(); // 적 그리기
-    drawLightning(); // 번개 그리기
-    drawScore(); // 점수 그리기
-    drawLives(); // 잔기 그리기
-
-    // 플레이어 그리기
-    if (images.player_spritesheet.complete) {
-        ctx.save(); // 현재 캔버스 상태 저장
-        if (!player.facingRight) {
-            ctx.scale(-1, 1); // 좌우 반전
-            ctx.drawImage(
-                images.player_spritesheet,
-                player.currentFrame * player.frameWidth, // 스프라이트 시트 내 X 좌표
-                player.frameY, // 스프라이트 시트 내 Y 좌표 (현재는 0, 나중에 점프/공격 등 추가 가능)
-                player.frameWidth,
-                player.frameHeight,
-                -player.x - player.width, // 반전된 좌표 계산
-                player.y - cameraY,
-                player.width,
-                player.height
-            );
-        } else {
-            ctx.drawImage(
-                images.player_spritesheet,
-                player.currentFrame * player.frameWidth, // 스프라이트 시트 내 X 좌표
-                player.frameY, // 스프라이트 시트 내 Y 좌표 (현재는 0, 나중에 점프/공격 등 추가 가능)
-                player.frameWidth,
-                player.frameHeight,
-                player.x,
-                player.y - cameraY,
-                player.width,
-                player.height
-            );
+        if (player.y - cameraY < GAME_CLEAR_HEIGHT) {
+            gameClear = true;
+            stopAllAudios();
+            playAudio('sfx_game_clear');
         }
-        ctx.restore(); // 캔버스 상태 복원
+
+        drawPlatforms();
+        drawApples();
+        drawDiamonds();
+        drawEnemies();
+        drawLightning();
+        drawScore();
+        drawLives();
+
+        // 플레이어 그리기
+        if (images.player_spritesheet.complete) {
+            ctx.save();
+            if (!player.facingRight) {
+                ctx.scale(-1, 1);
+                ctx.drawImage(
+                    images.player_spritesheet,
+                    player.currentFrame * player.frameWidth,
+                    player.frameY,
+                    player.frameWidth,
+                    player.frameHeight,
+                    -player.x - player.width,
+                    player.y - cameraY,
+                    player.width,
+                    player.height
+                );
+            } else {
+                ctx.drawImage(
+                    images.player_spritesheet,
+                    player.currentFrame * player.frameWidth,
+                    player.frameY,
+                    player.frameWidth,
+                    player.frameHeight,
+                    player.x,
+                    player.y - cameraY,
+                    player.width,
+                    player.height
+                );
+            }
+            ctx.restore();
+        }
     }
 
     requestAnimationFrame(gameLoop);
