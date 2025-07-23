@@ -1,5 +1,6 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
+canvas.focus(); // 페이지 로드 시 캔버스에 포커스 설정
 
 // 게임 기본 설정
 const GAME_WIDTH = canvas.width;
