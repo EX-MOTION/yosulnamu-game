@@ -12,7 +12,6 @@ const SCROLL_THRESHOLD = GAME_HEIGHT / 3; // 플레이어가 이 높이에 도�
 // 이미지 로드 관리
 const images = {};
 const imageSources = {
-    player: 'assets/player.png',
     player_spritesheet: 'assets/player_spritesheet.png', // 플레이어 애니메이션 스프라이트 시트
     apple: 'assets/apple.png',
     enemy: 'assets/enemy.png',
@@ -33,14 +32,14 @@ const totalImages = Object.keys(imageSources).length;
 let audiosLoaded = 0;
 const audios = {};
 const audioSources = {
-    bgm_main: 'assets/bgm_main.mp3',
-    bgm_section2: 'assets/bgm_section2.mp3',
-    sfx_jump: 'assets/sfx_jump.mp3',
-    sfx_apple_drop: 'assets/sfx_apple_drop.mp3',
-    sfx_enemy_hit: 'assets/sfx_enemy_hit.mp3',
-    sfx_diamond: 'assets/sfx_diamond.mp3',
-    sfx_game_over: 'assets/sfx_game_over.mp3',
-    sfx_game_clear: 'assets/sfx_game_clear.mp3'
+    bgm_main: 'assets/bgm_main.wav',
+    bgm_section2: 'assets/bgm_section2.wav',
+    sfx_jump: 'assets/sfx_jump.wav',
+    sfx_apple_drop: 'assets/sfx_apple_drop.wav',
+    sfx_enemy_hit: 'assets/sfx_enemy_hit.wav',
+    sfx_diamond: 'assets/sfx_diamond.wav',
+    sfx_game_over: 'assets/sfx_game_over.wav',
+    sfx_game_clear: 'assets/sfx_game_clear.wav'
 };
 const totalAudios = Object.keys(audioSources).length;
 
@@ -52,7 +51,15 @@ function loadImage(name, src) {
         checkAllAssetsLoaded();
     };
     images[name].onerror = () => {
-        console.error(`Failed to load image: ${src}`);
+        console.error(`Failed to load image: ${src}. Creating a placeholder.`);
+        // Create a placeholder image
+        const placeholder = document.createElement('canvas');
+        placeholder.width = 32;
+        placeholder.height = 32;
+        const ctx = placeholder.getContext('2d');
+        ctx.fillStyle = 'magenta';
+        ctx.fillRect(0, 0, 32, 32);
+        images[name].src = placeholder.toDataURL();
         imagesLoaded++;
         checkAllAssetsLoaded();
     };
